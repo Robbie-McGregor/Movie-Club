@@ -173,6 +173,9 @@ nav .nav-container {
   background: #000000;
   border-radius: 10px;
 }
+a.showcase-link{
+  text-decoration: none;
+}
 
 .showcase-slide-card {
   width: 200px;

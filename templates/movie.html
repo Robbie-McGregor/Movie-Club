@@ -1,0 +1,41 @@
+{% include 'header.html' %}
+
+
+<div class="container">
+    <div class="movie-showcase-container">
+        <div class="movie-showcase-poster">
+            <img class="poster-img" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" alt="">
+        </div>
+        <div class="movie-showcase-info">
+            <h1>{{ movie.original_title }}</h1>
+            <ul class="info-ul">
+                <li><small>{{ movie.release_date.split('-')[0] }}</small></li>
+                {% for genre in movie.genres  %}
+                <li><small>{{ genre.name }}</small></li>
+                {% endfor %}
+                <li><small>{{movie.runtime}} min</small></li>
+            </ul>
+            <h3>{{ movie.tagline }}</h3>
+            <p>{{ movie.overview }}</p>
+
+        </div>
+    </div>
+    <div class="showcase">
+        <h2>Top Billed Cast</h2>
+        <div class="showcase-slider">
+            {% for person in cast.cast %}
+                <div class="cast-member showcase-slide-card">
+                    <div class="poster">
+                        <img src="https://image.tmdb.org/t/p/w185{{ person.profile_path }}" alt="" class="poster-img">
+                    </div>
+                    <h2>{{ person.name }}</h2>
+                    <br>
+                    <small>{{ person.character }}</small>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% include 'footer.html' %}

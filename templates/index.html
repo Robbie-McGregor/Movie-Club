@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Movie Club</title>
-</head>
-<body>
-    
-    <nav>
-        <div class="container nav-container">
-           <a href="#" class="logo" id="logo">Movie Club</a>
-           <div class="search">
-                <i id='search-btn' class="fas fa-search"></i>
-                <input type="text" id='search' placeholder="">
-           </div>
-        </div>
-
-    </nav>
-
+{% include 'header.html' %}
 
     <div class="container">
         <div id="app" class='app'>
+            {% for showcase in showcases %}
+                <div class="showcase">
+                    <h1>{{showcase.title}}</h1>
+                    <div class="showcase-slider">
+                        {% for movie in showcase.movies %}
+                            <a href="{{ url_for('getMovie', id=movie.id) }}" class="showcase-link">
+                                <div class="showcase-slide-card">
+                                        <div class="poster">
+                                            <img class="poster-img" src="https://image.tmdb.org/t/p/original{{movie.poster_path}}" onerror="this.onerror=null;this.src='./img-not-found.jpeg'">
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i>
+                                                <span>{{movie.vote_average}}</span>
+                                            </div>
+                                        </div>
+                                    <h2>{{movie.original_title}}</h2>
+                                    <p>{{movie.release_date}}</p>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
     </div>    
     </div>
 
 
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+<!-- {% include 'footer.html' %} -->
