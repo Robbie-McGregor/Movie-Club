@@ -14,7 +14,10 @@ def home():
         apiResponse = apiCall(showcase['apiLink'])
         movies = apiResponse['results']
         for movie in movies:
-            movie['release_date'] = convertDate(movie['release_date'])
+            try:
+                movie['release_date'] = convertDate(movie['release_date'])
+            except:
+                movie['release_date'] = ""
         sections.append({
             'title': showcase['title'],
             'movies': movies
@@ -42,7 +45,10 @@ def getPerson(id):
     for credit in credits['cast']:
         unordered_credits.append(credit)
     for movie in unordered_credits:
-        movie['release_date'] = convertDate(movie['release_date'])
+        try:
+            movie['release_date'] = convertDate(movie['release_date'])
+        except:
+            movie['release_date'] = ""
     popular_credits = sorted(unordered_credits, key = lambda i: i['popularity'],reverse=True)
     popular_credits = popular_credits[:10]
     rated_credits = sorted(unordered_credits, key = lambda i: i['vote_average'],reverse=True)
