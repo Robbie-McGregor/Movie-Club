@@ -10,7 +10,7 @@
                             <a href="{{ url_for('getMovie', id=movie.id) }}" class="showcase-link">
                                 <div class="showcase-slide-card">
                                         <div class="poster">
-                                            <img class="poster-img" src="https://image.tmdb.org/t/p/original{{movie.poster_path}}" onerror="this.onerror=null;this.src='./img-not-found.jpeg'">
+                                            <img class="poster-img" src="https://image.tmdb.org/t/p/original{{movie.poster_path}}">
                                             <div class="rating">
                                                 <i class="fas fa-star"></i>
                                                 <span>{{movie.vote_average}}</span>
