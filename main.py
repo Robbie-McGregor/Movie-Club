@@ -28,11 +28,26 @@ def home():
 def search():
     return render_template('search.html')
 
-@app.route('/movie/<id>')
+@app.route('/film/title/<id>')
 def getMovie(id):
     movie = apiCall(f"https://api.themoviedb.org/3/movie/{id}?api_key={apiKey}&language=en-US")
     cast = apiCall(f"https://api.themoviedb.org/3/movie/{id}/credits?api_key={apiKey}&language=en-US")
     return render_template('movie.html', movie=movie, cast=cast)
+
+@app.route('/person/<id>')
+def getPerson(id):
+    person = apiCall(f"https://api.themoviedb.org/3/person/{id}?api_key={apiKey}&language=en-US")
+    credits = apiCall(f"https://api.themoviedb.org/3/person/{id}/movie_credits?api_key={apiKey}&language=en-US")
+    unordered_credits = []
+    for credit in credits['cast']:
+        unordered_credits.append(credit)
+    for movie in unordered_credits:
+        movie['release_date'] = convertDate(movie['release_date'])
+    popular_credits = sorted(unordered_credits, key = lambda i: i['popularity'],reverse=True)
+    popular_credits = popular_credits[:10]
+    rated_credits = sorted(unordered_credits, key = lambda i: i['vote_average'],reverse=True)
+    rated_credits = rated_credits[:10]
+    return render_template('person.html', person=person, popular_credits=popular_credits, rated_credits=rated_credits)
 
 def convertDate(date):
     if (date):

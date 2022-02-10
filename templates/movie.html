@@ -24,14 +24,16 @@
         <h2>Top Billed Cast</h2>
         <div class="showcase-slider">
             {% for person in cast.cast %}
-                <div class="cast-member showcase-slide-card">
-                    <div class="poster">
-                        <img src="https://image.tmdb.org/t/p/w185{{ person.profile_path }}" alt="" class="poster-img">
+                <a href="{{ url_for('getPerson', id=person.id) }}" class="showcase-link">
+                    <div class="cast-member showcase-slide-card">
+                        <div class="poster">
+                            <img src="https://image.tmdb.org/t/p/w185{{ person.profile_path }}" alt="" class="poster-img">
+                        </div>
+                        <h2>{{ person.name }}</h2>
+                        <br>
+                        <small>{{ person.character }}</small>
                     </div>
-                    <h2>{{ person.name }}</h2>
-                    <br>
-                    <small>{{ person.character }}</small>
-                </div>
+                </a>
             {% endfor %}
         </div>
     </div>
