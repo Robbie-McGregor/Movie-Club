@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 apiKey = '1e562fa9c998c5306da6e7b23bfd7138'
 
@@ -14,10 +14,8 @@ def home():
         apiResponse = apiCall(showcase['apiLink'])
         movies = apiResponse['results']
         for movie in movies:
-            try:
+            if 'release_date' in movie:
                 movie['release_date'] = convertDate(movie['release_date'])
-            except:
-                movie['release_date'] = ""
         sections.append({
             'title': showcase['title'],
             'movies': movies
@@ -41,19 +39,28 @@ def getPerson(id):
     for credit in credits['cast']:
         unordered_credits.append(credit)
     for movie in unordered_credits:
-        try:
+        if 'release_date' in movie:
             movie['release_date'] = convertDate(movie['release_date'])
-        except:
-            movie['release_date'] = ""
     popular_credits = sorted(unordered_credits, key = lambda i: i['popularity'],reverse=True)
     popular_credits = popular_credits[:10]
     rated_credits = sorted(unordered_credits, key = lambda i: i['vote_average'],reverse=True)
     rated_credits = rated_credits[:10]
     return render_template('person.html', person=person, popular_credits=popular_credits, rated_credits=rated_credits)
 
-@app.route('/search/<query>')
-def search(query):
-    return render_template('search.html')
+@app.route('/search')
+def search():
+    args = request.args
+    query_string = ""
+    page = 1
+    if "query" in args:
+        query_string = args['query']
+    if 'page' in args:
+        page = args['page']
+    results = apiCall(f"https://api.themoviedb.org/3/search/movie?api_key={apiKey}&language=en-US&query={query_string}&page={page}&include_adult=false")
+    for movie in results['results']:
+        if 'release_date' in movie:
+            movie['release_date'] = convertDate(movie['release_date'])
+    return render_template('search.html', string=query_string, results=results)
 
 def convertDate(date):
     if (date):
@@ -99,4 +106,4 @@ def apiCall(url):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port)

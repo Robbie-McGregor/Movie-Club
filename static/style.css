@@ -72,6 +72,7 @@ nav .logo:hover::before {
 nav .nav-container {
   display: flex;
   justify-content: space-between;
+  max-width: 1200px;
 }
 
 .nav-container .search {
@@ -79,11 +80,16 @@ nav .nav-container {
   max-width: 40%;
 }
 
-.nav-container .search i {
-  color: black;
+.nav-container .search button{
+  background-color: transparent;
+  border: none;
   position: absolute;
   right: 10px;
   bottom: 10px;
+}
+
+.nav-container .search i {
+  color: black;
   cursor: pointer;
 }
 
@@ -104,6 +110,13 @@ nav .nav-container {
 .showcase {
   margin-top: 30px;
   margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper{
+  width: 100%;
 }
 
 .showcase h1 {
@@ -189,7 +202,13 @@ a.showcase-link{
   padding-bottom: 10px;
   position: relative;
   cursor: pointer;
+  overflow: hidden;
 }
+
+.showcase-slider .showcase-slide-card:first-of-type{
+  margin-left: 0;
+}
+
 
 .showcase-slide-card ::after {
   content: '';
@@ -352,7 +371,8 @@ a.showcase-link{
 }
 
 button.load-more {
-  padding: 10px 50px;
+  padding: 10px 0 10px 0;
+  width: 200px;
   font-size: 20px;
   border-radius: 5px;
   border: none;

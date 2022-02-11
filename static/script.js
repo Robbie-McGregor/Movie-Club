@@ -286,9 +286,9 @@ function scrollToTop() {
 
 }
 
-(function init() {
-    displayAllShowcases()
-})()
+// (function init() {
+//     displayAllShowcases()
+// })()
 
 //Event Listeners
 document.getElementById('logo').addEventListener('click', displayAllShowcases)

@@ -1,32 +1,32 @@
 {% include 'header.html' %}
 
-    <div class="container">
-        <div id="app" class='app'>
-            {% for showcase in showcases %}
-                <div class="showcase">
-                    <h1>{{showcase.title}}</h1>
-                    <div class="showcase-slider">
-                        {% for movie in showcase.movies %}
-                            <a href="{{ url_for('getMovie', id=movie.id) }}" class="showcase-link">
-                                <div class="showcase-slide-card">
-                                        <div class="poster">
-                                            <img class="poster-img" src="https://image.tmdb.org/t/p/original{{movie.poster_path}}">
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <span>{{movie.vote_average}}</span>
-                                            </div>
-                                        </div>
-                                    <h2>{{movie.original_title}}</h2>
-                                    <p>{{movie.release_date}}</p>
+<div class="container">
+    {% for showcase in showcases %}
+        <div class="showcase">
+            <div class="wrapper">
+                <h1>{{showcase.title}}<i class="fas fa-chevron-right"></i></h1>
+            </div>
+            <div class="showcase-slider">
+                {% for movie in showcase.movies %}
+                    <a href="{{ url_for('getMovie', id=movie.id) }}&page=1" class="showcase-link">
+                        <div class="showcase-slide-card">
+                                <div class="poster">
+                                    <img class="poster-img" src="https://image.tmdb.org/t/p/original{{movie.poster_path}}">
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <span>{{movie.vote_average}}</span>
+                                    </div>
                                 </div>
-                            </a>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endfor %}
-    </div>    
-    </div>
+                            <h2>{{movie.original_title}}</h2>
+                            <p>{{movie.release_date}}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}   
+</div>
 
 
 
-<!-- {% include 'footer.html' %} -->
+{% include 'footer.html' %}

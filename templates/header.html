@@ -12,10 +12,13 @@
     <nav>
         <div class="container nav-container">
            <a href="/" class="logo" id="logo">Movie Club</a>
-           <div class="search">
+           <form class="search" method='GET' action="/search">
+               <button type="submit">
                 <i id='search-btn' class="fas fa-search"></i>
-                <input type="text" id='search' placeholder="">
-           </div>
+                </button>
+                <input type="text" id='search' name="query" placeholder="">
+
+           </form>
         </div>
 
     </nav>
