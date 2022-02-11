@@ -27,10 +27,6 @@ def home():
 
     return render_template('index.html', showcases=sections)
 
-@app.route('/search')
-def search():
-    return render_template('search.html')
-
 @app.route('/film/title/<id>')
 def getMovie(id):
     movie = apiCall(f"https://api.themoviedb.org/3/movie/{id}?api_key={apiKey}&language=en-US")
@@ -54,6 +50,10 @@ def getPerson(id):
     rated_credits = sorted(unordered_credits, key = lambda i: i['vote_average'],reverse=True)
     rated_credits = rated_credits[:10]
     return render_template('person.html', person=person, popular_credits=popular_credits, rated_credits=rated_credits)
+
+@app.route('/search/<query>')
+def search(query):
+    return render_template('search.html')
 
 def convertDate(date):
     if (date):
