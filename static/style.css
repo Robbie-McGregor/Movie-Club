@@ -198,11 +198,13 @@ a.showcase-link{
   text-align: center;
   background-color: azure;
   border-radius: 10px;
+  border: 0px solid black;
   color: black;
   padding-bottom: 10px;
   position: relative;
   cursor: pointer;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .showcase-slider .showcase-slide-card:first-of-type{
@@ -220,7 +222,6 @@ a.showcase-link{
   background-color: #fff;
   opacity: 0;
   transition: opacity var(--transition-duration) linear;
-  border-radius: 10px;
 }
 
 .showcase-slide-card:hover ::after {
@@ -236,8 +237,6 @@ a.showcase-link{
 .showcase-slide-card img {
   width: 100%;
   height: 300px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
 }
 
 .showcase-slide-card .poster {

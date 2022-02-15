@@ -29,7 +29,8 @@ def home():
 def getMovie(id):
     movie = apiCall(f"https://api.themoviedb.org/3/movie/{id}?api_key={apiKey}&language=en-US")
     cast = apiCall(f"https://api.themoviedb.org/3/movie/{id}/credits?api_key={apiKey}&language=en-US")
-    return render_template('movie.html', movie=movie, cast=cast)
+    title = f"{movie['original_title']} ({get_year(movie['release_date'])}) - Movie Club"
+    return render_template('movie.html', movie=movie, cast=cast, title=title)
 
 @app.route('/person/<id>')
 def getPerson(id):
@@ -45,7 +46,8 @@ def getPerson(id):
     popular_credits = popular_credits[:10]
     rated_credits = sorted(unordered_credits, key = lambda i: i['vote_average'],reverse=True)
     rated_credits = rated_credits[:10]
-    return render_template('person.html', person=person, popular_credits=popular_credits, rated_credits=rated_credits)
+    title = f"{person['name']} - Movie Club"
+    return render_template('person.html', person=person, popular_credits=popular_credits, rated_credits=rated_credits, title=title)
 
 @app.route('/search')
 def search():
@@ -60,7 +62,7 @@ def search():
     for movie in results['results']:
         if 'release_date' in movie:
             movie['release_date'] = convertDate(movie['release_date'])
-    return render_template('search.html', string=query_string, results=results)
+    return render_template('search.html', string=query_string, results=results, title='Find - Movie Club')
 
 def convertDate(date):
     if (date):
@@ -74,6 +76,11 @@ def convertDate(date):
         return f"{monthName} {day}, {year}"
     else:
             return ""
+
+def get_year(str):
+    date = str.split('-')
+    year = date[0]
+    return year
 
 showcases = [
     {
