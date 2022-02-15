@@ -29,7 +29,10 @@ def home():
 def getMovie(id):
     movie = apiCall(f"https://api.themoviedb.org/3/movie/{id}?api_key={apiKey}&language=en-US")
     cast = apiCall(f"https://api.themoviedb.org/3/movie/{id}/credits?api_key={apiKey}&language=en-US")
-    title = f"{movie['original_title']} {get_year(movie['release_date'])} - Movie Club"
+    year = ""
+    if movie['release_date']:
+        year = get_year(movie['release_date'])
+    title = f"{movie['original_title']}{year} - Movie Club"
     return render_template('movie.html', movie=movie, cast=cast, title=title)
 
 @app.route('/person/<id>')
@@ -79,7 +82,7 @@ def convertDate(date):
 
 def get_year(str):
     date = str.split('-')
-    year = f"({date[0]})"
+    year = f" ({date[0]})"
     return year
 
 showcases = [
