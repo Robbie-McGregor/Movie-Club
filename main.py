@@ -65,7 +65,7 @@ def search():
     for movie in results['results']:
         if 'release_date' in movie:
             movie['release_date'] = convertDate(movie['release_date'])
-    return render_template('search.html', string=query_string, results=results, title='Find - Movie Club')
+    return render_template('search.html', string=query_string, results=results, title='Search Results - Movie Club')
 
 def convertDate(date):
     if (date):
